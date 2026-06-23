@@ -84,7 +84,7 @@ public class DashboardView extends VBox {
         getStyleClass().add("page-view");
 
         // ─── title ────────────────────────────────────────────────
-        Label title = new Label("War Table");
+        Label title = new Label("Dashboard");
         title.getStyleClass().add("page-title");
 
         // ─── action bar ───────────────────────────────────────────
@@ -267,7 +267,7 @@ public class DashboardView extends VBox {
     private void createActionButtons() {
         actions.getChildren().clear();
 
-        playBtn = new Label("Begin Campaign");
+        playBtn = new Label("Start Game");
         playBtn.getStyleClass().addAll("action-button", "button-primary");
         playBtn.setGraphic(new FontIcon(org.kordamp.ikonli.fontawesome5.FontAwesomeSolid.CROWN));
         playBtn.setGraphicTextGap(10);

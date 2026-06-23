@@ -39,6 +39,10 @@ public class MainView extends BorderPane {
 
     public MainView(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        
+        // Ensure initial audio settings are loaded
+        new com.papercrown.desktop.viewmodel.SettingsViewModel(backendClient, audioManager).load();
+
         rootStack = new StackPane();
 
         BorderPane mainLayout = new BorderPane();

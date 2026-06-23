@@ -37,7 +37,8 @@ public class SettingsView extends VBox {
                 createFullscreenSetting(),
                 createVolumeSetting(),
                 createSoundSetting(),
-                createAnimationSetting()
+                createAnimationSetting(),
+                createQuitSetting()
         );
 
         getChildren().addAll(title, settingsList);
@@ -99,6 +100,39 @@ public class SettingsView extends VBox {
         return wrapper;
     }
 
+    private VBox createQuitSetting() {
+        Button quitBtn = new Button("Quit Game");
+        quitBtn.setStyle("-fx-background-color: #ff3c3c; -fx-text-fill: white; -fx-padding: 12 24; -fx-font-weight: bold; -fx-background-radius: 6px; -fx-cursor: hand; -fx-font-size: 14px;");
+        quitBtn.setMaxWidth(Double.MAX_VALUE); // stretch to width
+        quitBtn.setOnAction(e -> showQuitConfirmModal());
+
+        FontIcon icon = new FontIcon(FontAwesomeSolid.POWER_OFF);
+        icon.setIconSize(16);
+        icon.setIconColor(javafx.scene.paint.Color.WHITE);
+        quitBtn.setGraphic(icon);
+        quitBtn.setGraphicTextGap(10);
+
+        return new VBox(quitBtn);
+    }
+
+    private void showQuitConfirmModal() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Quit Game");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to quit Paper Crown?");
+        
+        DialogPane dp = alert.getDialogPane();
+        dp.setStyle("-fx-background-color: #1a1a24; -fx-base: #1a1a24;");
+        dp.lookup(".content.label").setStyle("-fx-text-fill: #e8e8f0;");
+        
+        alert.showAndWait().ifPresent(res -> {
+            if (res == ButtonType.OK) {
+                javafx.application.Platform.exit();
+                System.exit(0);
+            }
+        });
+    }
+
     private HBox createSettingRow(String label, String iconStr) {
         HBox row = new HBox(16);
         row.setAlignment(Pos.CENTER_LEFT);
@@ -110,6 +144,7 @@ public class SettingsView extends VBox {
             case "fas-volume-up" -> FontAwesomeSolid.VOLUME_UP;
             case "fas-music" -> FontAwesomeSolid.MUSIC;
             case "fas-sync-alt" -> FontAwesomeSolid.SYNC_ALT;
+            case "fas-power-off" -> FontAwesomeSolid.POWER_OFF;
             default -> FontAwesomeSolid.COG;
         });
         icon.setIconSize(18);
